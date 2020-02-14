@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <style type="text/css">
+        img{
+            background-size: contain;
+            width: 100%;
+            height: auto;
+        }
+        .welcomeWord{
+            text-align: center;
+        }
+    </style>
+    <script type="text/javascript">
+
+    </script>
+</head>
+<body>
+<div class="container">
+    <!--<ul class="nav nav-tabs">-->
+        <!--<li role="presentation" class="active"><a href="#">首页</a></li>-->
+        <!--<li role="presentation"><a href="empsList.html" th:href="@{/employee/employees}" methods="GET">员工</a></li>-->
+        <!--<li role="presentation"><a href="#">帮助</a></li>-->
+    <!--</ul>-->
+    <div th:replace="~{../commonTemplates/commonTemplates :: navigationBar(activeUrl='index.html')}">
+    </div>
+
+    <div>
+        <h1 class="welcomeWord">这里是[[${session.loginUser}]]的首页</h1>
+        <div>
+            <img th:src="@{/asserts/img/indexImge.jpg}"/>
+        </div>
+    </div>
+</div>
+</body>
+</html>

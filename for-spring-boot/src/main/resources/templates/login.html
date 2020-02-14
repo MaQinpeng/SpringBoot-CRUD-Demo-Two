@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>crudDemo登录</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <style type="text/css">
+        .container{
+            padding-top: 30px;
+            width:300px;
+        }
+        .form-control{
+            margin: 5px;
+        }
+        label{
+            margin-left: 5px;
+        }
+        form{
+            top: 100px;
+        }
+        button{
+            margin-left: 5px;
+        }
+        #loginHeadLine{
+            margin-left: 5px;
+        }
+        .container{
+            padding-top: 130px;
+        }
+        .internationalLanguageTag{
+
+        }
+        .PYear{
+            text-align: center;
+            margin-top: 16px;
+        }
+        #msgAlert{
+            margin: 0 0 0 5px;
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <form class="form-signin" action="index.html" th:action="@{/login/loginCheck}" method="post">
+        <h2 id="loginHeadLine" th:text="#{login.welcomeWord}">
+            请登录
+        </h2>
+        <div>
+            <input name="username" id="account" type="text" class="form-control"
+                   th:placeholder="#{login.account}"
+                   placeholder="账号/邮箱/手机号" align="middle">
+        </div>
+        <div>
+            <input name="password" id="password" class="form-control" type="password"
+                   th:placeholder="#{login.password}"
+                   placeholder="密码"
+                   align="middle">
+        </div>
+        <div>
+            <p id="msgAlert" th:text="${msg}" th:if="${not #strings.isEmpty(msg)}"></p>
+        </div>
+        <div>
+            <label>
+                <input type="checkbox" value="remember-me"> [[#{login.remember}]]
+            </label>
+        </div>
+        <button class="btn btn-lg btn-primary btn-block" type="submit" th:text="#{login.btn}">登陆</button>
+    </form>
+    <p class="PYear">
+        <span  class="mt-5 mb-3 text-muted">©2020-2021</span>
+        <br>
+        <a class="btn btn-sm internationalLanguageTag" th:href="@{/index(l='zh_CN')}">中文</a>
+        <a class="btn btn-sm internationalLanguageTag" th:href="@{/index(l='en_US')}">English</a>
+    </p>
+</div>
+</body>
+</html>

@@ -1,0 +1,23 @@
+item:
+  sku: '10010'
+  color: '蓝色'
+  size: '110'
+spring:
+  messages:
+    basename: i18n/login
+  thymeleaf:
+    cache: false #禁用缓存
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://192.168.41.128:3306/jdbc?serverTimezone=UTC&useSSL=false&useUnicode=true&characterEncoding=UTF-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    type: com.alibaba.druid.pool.DruidDataSource
+
+    maxWait: 60000
+    maxActive: 20
+mybatis:
+  config-location: classpath:mybatis/mybatis-config.xml
+  mapper-locations: classpath:mybatis/mapper/*.xml
+
+

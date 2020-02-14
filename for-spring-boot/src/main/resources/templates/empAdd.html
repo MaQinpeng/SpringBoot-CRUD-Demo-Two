@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <script type="text/javascript">
+        function haveEmployee() {
+            var code = document.getElementById("employeeCode").value;
+            var httpRequest = new XMLHttpRequest();
+            var url = "../haveEmployee/"+ code;
+            httpRequest.open("GET",url,true);
+            httpRequest.onreadystatechange =  function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    var res = JSON.parse(this.responseText);
+                    var flag = res.haveEmployee;
+                    var classList = document.getElementById("employeeDivId").classList;
+                    if(flag){
+                        //红绿颜色框转换
+                        classList.remove("has-success");
+                        classList.add("has-error");
+                        //提示语句出现和消失
+                        document.getElementById("warnSpan").innerHTML="该员工代码已存在";
+                    }else {
+                        classList.remove("has-error");
+                        classList.add("has-success");
+                        document.getElementById("warnSpan").innerHTML="";
+                    }
+                }
+            };
+            httpRequest.send();
+        }
+    </script>
+    <style type="text/css">
+        #input{
+            width: 50%;
+        }
+        .warnSpan{
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{../commonTemplates/commonTemplates :: navigationBar(activeUrl='empsList.html')}"></div>
+    <div>
+        <h2><strong>员工添加</strong></h2>
+    </div>
+    <div>
+        <form th:action="@{/employee/employee}" method="post">
+            <input type="hidden" name="_method" value="put" th:if="${employee!=null}">
+            <input type="hidden" name="id" th:value="${employee!=null}?${employee.id}:null">
+            <div class="form-group">
+                <label for="name">姓名：</label>
+                <input name="name" type="text" class="form-control" id="name" placeholder="姓名"
+                       th:value="${employee!=null}?${employee.name}">
+            </div>
+            <div class="form-group">
+                <label class="control-label">性别：</label><br>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="true" th:checked="${employee!=null}?${employee.gender}">男
+                </label>
+                <label class="radio-inline">
+                    <input type="radio" name="gender" value="false" th:checked="${employee!=null}?${!employee.gender}">女
+                </label>
+            </div>
+            <div class="form-group" id ="employeeDivId">
+                <label for="employeeCode">员工代码：</label>
+                <input name="employeeCode" type="text" class="form-control" id="employeeCode" placeholder="员工代码"
+                       th:value="${employee!=null}?${employee.employeeCode}"
+                        onblur="haveEmployee()">
+                <span class="warnSpan" id="warnSpan"></span>
+            </div>
+            <div class="form-group">
+                <label for="email">邮箱：</label>
+                <input name="email" type="email" class="form-control" id="email" placeholder="邮箱"
+                       th:value="${employee!=null}?${employee.email}">
+            </div>
+            <div class="form-group">
+                <label for="country">国家：</label>
+                <select class="form-control" id="country" name="address">
+                    <option th:value="${country}" th:each="country:${country}" th:selected="${employee!=null}?${employee.country==country}">[[${country}]]</option>
+                </select>
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">提交</button>
+                <a class="btn btn-success" href="empsList.html" th:href="@{/employee/employees}">返回</a>
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

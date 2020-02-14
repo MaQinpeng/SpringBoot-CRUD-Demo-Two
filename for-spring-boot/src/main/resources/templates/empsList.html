@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/webjars/bootstrap/3.3.7/css/bootstrap.min.css}">
+    <script th:src="@{/webjars/jquery/1.11.1/jquery.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/3.3.7/js/bootstrap.min.js}"></script>
+    <style type="text/css">
+
+    </style>
+    <script>
+        function myFunction() {
+            $("#deleteForm").attr("action",$(".deleteBtn").attr("del_url")).submit();
+        }
+    </script>
+</head>
+<body>
+<div class="container">
+    <div th:replace="~{../commonTemplates/commonTemplates :: navigationBar(activeUrl='empsList.html')}"></div>
+    <div>
+        <div>
+            <a class="btn btn-success" style="margin: 5px 0 5px 2px" href="empAdd.html" th:href="@{/employee/employee}">添加</a>
+        </div>
+        <table class="table table-striped table-bordered">
+            <tr>
+                <th>姓名</th>
+                <th>性别</th>
+                <th>员工代码</th>
+                <th>邮箱</th>
+                <th>地址</th>
+                <th>操作</th>
+            </tr>
+            <tr th:each="employee:${employees}">
+                <td th:text="${employee.name}">空</td>
+                <td th:text="${employee.gender}?'男':'女'">空</td>
+                <td th:text="${employee.employeeCode}">空</td>
+                <td th:text="${employee.email}">空</td>
+                <td th:text="${employee.country}">空</td>
+                <td>
+                    <a class="btn btn-sm btn-primary" href="empAdd.html" th:href="@{/employee/employee/}+${employee.id}">编辑</a>
+                    <button type="button" th:attr="del_url=@{employeeDelete/}+${employee.id}" class="btn btn-sm btn-danger deleteBtn" onclick="myFunction()">删除</button>
+                </td>
+            </tr>
+        </table>
+        <form id="deleteForm" method="post">
+            <input type="hidden" name="_method" value="delete">
+        </form>
+    </div>
+</div>
+</body>
+</html>
